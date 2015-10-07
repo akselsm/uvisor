@@ -17,7 +17,9 @@
 #include <uvisor.h>
 #include "halt.h"
 
-#define HALT_LED_PIN 14
+// TODO: Add LED port and pin for all targets
+#define HALT_LED_PORT 4 /* Port E */
+#define HALT_LED_PIN 3
 
 void halt_led(THaltError reason)
 {
@@ -26,26 +28,27 @@ void halt_led(THaltError reason)
 
     int flag;
 
-    /* enable clock for port C */
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOGEN;
+    /* Enable HFPER clock */
+    CMU->HFPERCLKDIV |= 1 << _CMU_HFPERCLKDIV_HFPERCLKEN_SHIFT;
+    /* Enable GPIO clock */
+    CMU->HFPERCLKEN0 |= 1 << _CMU_HFPERCLKEN0_GPIO_SHIFT;
 
-    /* enable output for pin */
-    GPIOG->MODER &= ~(0x3 << (HALT_LED_PIN * 2));
-    GPIOG->MODER |=   0x1 << (HALT_LED_PIN * 2) ;
-
-    /* set (low) speed for pin */
-    GPIOG->OSPEEDR &= ~(0x3 << (HALT_LED_PIN * 2));
-
-    /* set pin as neither pull up nor pull down */
-    GPIOG->PUPDR &= ~(0x3 << (HALT_LED_PIN * 2));
+    /* Set HALT port/pin to push-pull */
+#if  HALT_LED_PIN < 8
+    GPIO->P[HALT_LED_PORT].MODEL = (GPIO->P[HALT_LED_PORT].MODEL & ~(0xF << (HALT_LED_PIN * 4))) |
+                          (GPIO_P_MODEL_MODE0_PUSHPULL << (HALT_LED_PIN * 4));
+#else
+    GPIO->P[HALT_LED_PORT].MODEH = (GPIO->P[HALT_LED_PORT].MODEH & ~(0xF << ((HALT_LED_PIN - 8) * 4))) |
+                          (GPIO_P_MODEL_MODE0_PUSHPULL << ((HALT_LED_PIN - 8) * 4));
+#endif
 
     flag = 0;
     while(1)
     {
         for(toggle = 0; toggle < 2 * (uint32_t) reason; toggle++)
         {
-            /* toggle PORTG LED pin */
-            GPIOG->BSRR |= 0x1 << (HALT_LED_PIN + (flag ? 16 : 0));
+            /* toggle HALT LED pin */
+            GPIO->P[HALT_LED_PORT].DOUTTGL = 1 << HALT_LED_PIN;
             flag = !flag;
             for(delay = 0; delay < HALT_INTRA_PATTERN_DELAY; delay++);
         }
