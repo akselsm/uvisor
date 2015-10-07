@@ -19,6 +19,13 @@
 #include "unvic.h"
 #include "system.h"
 
+/* To not break the uvisor makefile, add in EFM32-specific source here */
+#if defined(FAMILY_GG) || defined(FAMILY_LG) || defined(FAMILY_WG)
+#include "system_efm32gg.c"
+#else
+#error "System.c: Unknown family"
+#endif
+
 /* all ISRs by default are weakly linked to the default handler */
 void UVISOR_ALIAS(isr_default_sys_handler) Reset_Handler(void);
 void UVISOR_ALIAS(isr_default_sys_handler) NMI_Handler(void);
