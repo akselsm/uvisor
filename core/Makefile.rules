@@ -127,7 +127,7 @@ else
 	UVISOR_FLASH_SIZE:=$(shell grep UVISOR_FLASH_SIZE $(CORE_DIR)/uvisor-config.h | sed -E 's/^.* (0x[0-9A-Fa-f]+).*$\/\1/')
 endif
 
-MEM_CONFIG:=$(CORE_DIR)/linker/$(CPU).h
+MEM_CONFIG:=$(CORE_DIR)/linker/$(ARCH).h
 FLAGS_CM4:=-mcpu=cortex-m4 -march=armv7e-m -mthumb
 
 LDFLAGS:=\

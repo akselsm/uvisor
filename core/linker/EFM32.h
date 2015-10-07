@@ -14,8 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define FLASH_ORIGIN 0x00000000
-#define FLASH_LENGTH 0x100000
+#include "em_family.h"
 
-#define SRAM_ORIGIN  0x20000000
-#define SRAM_LENGTH  0x20000
+#define FLASH_ORIGIN FLASH_BASE
+#define FLASH_LENGTH FLASH_SIZE
+
+#define SRAM_ORIGIN  SRAM_BASE
+#define SRAM_LENGTH  SRAM_SIZE

@@ -19,10 +19,9 @@
 
 #include "em_family.h"
 
-#define HW_IRQ_VECTORS 39
-
 /* all ISRs by default are weakly linked to the default handler */
 #if defined(_EFM32_GIANT_FAMILY)
+#define HW_IRQ_VECTORS 39
 extern void Reset_Handler(void);
 extern void NMI_Handler(void);
 extern void HardFault_Handler(void);
