@@ -14,17 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __UVISOR_DEVICE_H__
-#define __UVISOR_DEVICE_H__
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
 
-#if   defined(ARCH_EFM32)
-#  include <em_family.h>
-#elif defined(ARCH_MK64F)
-#  include <MK64F12.h>
-#elif defined(ARCH_STM32F4)
-#  include <stm32f4xx.h>
-#else
-#  error "unknown ARCH in Makefile"
-#endif
+#include <uvisor-config.h>
 
-#endif/*__UVISOR_DEVICE_H__*/
+/* memory not to be used by uVisor linker script */
+#define RESERVED_FLASH 0x400
+
+/* maximum memory used by uVisor */
+#define USE_FLASH_SIZE UVISOR_FLASH_SIZE
+#define USE_SRAM_SIZE  UVISOR_SRAM_SIZE
+
+/* stack configuration */
+#define STACK_SIZE       2048
+#define STACK_GUARD_BAND  (STACK_SIZE / 8)
+
+/* reserved regions */
+#define ARMv7M_MPU_RESERVED_REGIONS 2
+
+#endif/*__CONFIG_H__*/

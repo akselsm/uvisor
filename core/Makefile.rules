@@ -28,6 +28,7 @@ JLINK_VIEWER:=$(SEGGER)JLinkSWOViewer
 JLINK_VIEWER_MASK:=0x7
 AUXHFRCO_FREQ:=0
 JLINK_SWO_PARAM:=
+FAMILY?=
 
 ROOT_DIR:=../..
 CORE_DIR:=$(ROOT_DIR)/core
@@ -145,6 +146,7 @@ CFLAGS_PRE:=\
         -DARCH_$(ARCH) \
         -DARCH_MPU_$(ARCH_MPU) \
         -D$(CPU) \
+        -DFAMILY_$(FAMILY) \
         -DPROGRAM_VERSION=\"$(PROGRAM_VERSION)\" \
         -DCPU=$(CPU) \
         $(APP_CFLAGS) \
@@ -179,7 +181,7 @@ $(PROJECT).bin: $(PROJECT).elf
 	$(OBJCOPY) $< -O binary $@
 
 $(PROJECT).linker: $(MEM_CONFIG) $(CORE_DIR)/linker/default.h
-	$(CPP) -w -P -I$(CORE_DIR) $(APP_CFLAGS) -D$(CPU) -DARCH_$(ARCH) -include $^ -o $@
+	$(CPP) -w -P -I$(CORE_DIR) $(APP_CFLAGS) -D$(CPU) -DARCH_$(ARCH) -DFAMILY_$(FAMILY) -include $^ -o $@
 
 release: $(MBED_ASM_INPUT) $(PROJECT).bin
 	rm  -f $(RELEASE_INC)/*.h
@@ -195,7 +197,7 @@ release: $(MBED_ASM_INPUT) $(PROJECT).bin
 	find ../.. -name "*_exports.h" -not -path "$(RELEASE_DIR)/*"\
 	     -exec cp {} $(RELEASE_INC)/ \;
 	cp -f $(MBED_ASM_HEADER) $(MBED_ASM)
-	$(CPP) -w -P -I$(CORE_DIR) $(APP_CFLAGS) -DP-D$(CPU) -DARCH_$(ARCH)\
+	$(CPP) -w -P -I$(CORE_DIR) $(APP_CFLAGS) -DP-D$(CPU) -DARCH_$(ARCH) -DFAMILY_$(FAMILY)\
 	       -DRELEASE_BIN=\"$(MBED_BIN)\" $< >> $(MBED_ASM)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $(RELEASE_OBJ) $(MBED_ASM)
 
