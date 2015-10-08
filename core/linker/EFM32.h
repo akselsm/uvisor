@@ -14,10 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "../arch/EFM32/inc/em_family.h"
+#if defined(EFM32GG990F1024)
+#define _FLASH_SIZE  0x00100000
+#define _SRAM_SIZE   0x00020000
+#else
+#error "Unsupported MCU"
+#endif
+
 
 #define FLASH_ORIGIN 0x00000000
-#define FLASH_LENGTH FLASH_SIZE
+#define FLASH_LENGTH _FLASH_SIZE
 
 #define SRAM_ORIGIN  0x20000000
-#define SRAM_LENGTH  SRAM_SIZE
+#define SRAM_LENGTH  _SRAM_SIZE
+

@@ -28,6 +28,7 @@ export FAMILY
 export DEVICE
 export CPU
 export CPU_JLINK
+export OPT
 
 APP_CLEAN:=
 APP_CFLAGS:=-DUVISOR $(CONFIG) -Iconfig -Isrc -Ilib -Idebug
@@ -47,4 +48,4 @@ efm32:
 	
 #run release on a specific target
 efm32_release:
-	$(MAKE) all release CPU=$(ARCH)$(FAMILY)$(DEVICE) CPU_JLINK=$(ARCH)$(FAMILY)$(DEVICE)
+	$(MAKE) all OPT= release CPU=$(ARCH)$(FAMILY)$(DEVICE) CPU_JLINK=$(ARCH)$(FAMILY)$(DEVICE) FAMILY=$(FAMILY) DEVICE=$(DEVICE)

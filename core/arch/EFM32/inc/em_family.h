@@ -41,8 +41,6 @@
 #ifndef __EM_FAMILY_H
 #define __EM_FAMILY_H
 
-#define MEM_DEFINES_ONLY
-
 #if defined(FAMILY_GG)
 #include "../efm32gg/inc/em_device.h"
 #elif defined(FAMILY_LG)
