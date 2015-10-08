@@ -27,16 +27,15 @@
 #endif
 
 /* all ISRs by default are weakly linked to the default handler */
-void UVISOR_ALIAS(isr_default_sys_handler) Reset_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) NMI_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) HardFault_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) MemManage_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) BusFault_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) UsageFault_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) SVC_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) DebugMon_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) PendSV_Handler(void);
-void UVISOR_ALIAS(isr_default_sys_handler) SysTick_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) NonMaskableInt_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) HardFault_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) MemoryManagement_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) BusFault_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) UsageFault_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) SVCall_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) DebugMonitor_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) PendSV_IRQn_Handler(void);
+void UVISOR_ALIAS(isr_default_sys_handler) SysTick_IRQn_Handler(void);
 void UVISOR_ALIAS(isr_default_handler)     DMA_IRQHandler(void);
 void UVISOR_ALIAS(isr_default_handler)     GPIO_EVEN_IRQHandler(void);
 void UVISOR_ALIAS(isr_default_handler)     TIMER0_IRQHandler(void);
@@ -85,21 +84,21 @@ const TIsrVector g_isr_vector[ISR_VECTORS] =
 	(TIsrVector)&__stack_top__,
 
 	/* system interrupts */
-	&main_entry,                          /* -15 */
-	NMI_Handler,                          /* -14 */
-	HardFault_Handler,                    /* -13 */
-	MemManage_Handler,                    /* -12 */
-	BusFault_Handler,                     /* -11 */
-	UsageFault_Handler,                   /* -10 */
-	isr_default_sys_handler,              /* - 9 */
-	isr_default_sys_handler,              /* - 8 */
-	isr_default_sys_handler,              /* - 7 */
-	isr_default_sys_handler,              /* - 6 */
-	SVC_Handler,                          /* - 5 */
-	DebugMon_Handler,                     /* - 4 */
-	isr_default_sys_handler,              /* - 3 */
-	PendSV_Handler,                       /* - 2 */
-	SysTick_Handler,                      /* - 1 */
+	&main_entry,                           /* -15 */
+	NonMaskableInt_IRQn_Handler,           /* -14 */
+	HardFault_IRQn_Handler,                /* -13 */
+	MemoryManagement_IRQn_Handler,         /* -12 */
+	BusFault_IRQn_Handler,                 /* -11 */
+	UsageFault_IRQn_Handler,               /* -10 */
+	isr_default_sys_handler,               /* - 9 */
+	isr_default_sys_handler,               /* - 8 */
+	isr_default_sys_handler,               /* - 7 */
+	isr_default_sys_handler,               /* - 6 */
+	SVCall_IRQn_Handler,                   /* - 5 */
+	DebugMonitor_IRQn_Handler,             /* - 4 */
+	isr_default_sys_handler,               /* - 3 */
+	PendSV_IRQn_Handler,                   /* - 2 */
+	SysTick_IRQn_Handler,                  /* - 1 */
 
 	/* peripheral interrupts */
 	DMA_IRQHandler,                       /*   0 */

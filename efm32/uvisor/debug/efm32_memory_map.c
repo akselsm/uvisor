@@ -25,7 +25,10 @@ static const MemMap g_mem_map[] = {
     {"FPUEH",       FPUEH_BASE,       FPUEH_BASE       + sizeof(FPUEH_TypeDef)     },
 #endif
 #ifdef USB_BASE
-    {"USB",         USB_BASE,         USB_BASE         + sizeof(USB_TypeDef)       },
+    {"USB",         USB_BASE,         USB_BASE         + 0x400                     },
+#endif
+#ifdef USBC_MEM_BASE
+    {"USBC",        USBC_MEM_BASE,    USBC_MEM_END                                 },
 #endif
     {"MSC",         MSC_BASE,         MSC_BASE         + sizeof(MSC_TypeDef)       },
     {"EMU",         EMU_BASE,         EMU_BASE         + sizeof(EMU_TypeDef)       },
@@ -124,8 +127,14 @@ static const MemMap g_mem_map[] = {
 const MemMap* memory_map_name(uint32_t addr)
 {
     int i;
-    const MemMap *map;
-
+    const MemMap *map; 
+    
+    /* check if the faulting address is in the bitband region */
+    if ((addr >= BITBAND_PER_BASE) && (addr < (BITBAND_PER_BASE + 32 * PER_MEM_SIZE))) {
+        addr = ((addr - BITBAND_PER_BASE) >> 5) & ~0x3;
+        addr += PER_MEM_BASE;
+    }
+    
     /* find system memory region */
     map = g_mem_map;
     for(i = 0; i < UVISOR_ARRAY_COUNT(g_mem_map); i++)
