@@ -39,6 +39,7 @@
 extern "C" {
 #endif
 
+#if !defined(MEM_DEFINES_ONLY)
 /**************************************************************************//**
  * @addtogroup Parts
  * @{
@@ -171,6 +172,8 @@ typedef enum IRQn
 #define BITBAND_PER_BASE     ((uint32_t) 0x42000000UL) /**< Peripheral Address Space bit-band area */
 #define BITBAND_RAM_BASE     ((uint32_t) 0x22000000UL) /**< SRAM Address Space bit-band area */
 
+#endif
+
 /** Flash and SRAM limits for EFM32GG990F1024 */
 #define FLASH_BASE           (0x00000000UL) /**< Flash Base Address */
 #define FLASH_SIZE           (0x00100000UL) /**< Available Flash Memory */
@@ -181,6 +184,7 @@ typedef enum IRQn
 #define PRS_CHAN_COUNT       12             /**< Number of PRS channels */
 #define DMA_CHAN_COUNT       12             /**< Number of DMA channels */
 
+#if !defined(MEM_DEFINES_ONLY)
 /** AF channels connect the different on-chip peripherals with the af-mux */
 #define AFCHAN_MAX           163
 #define AFCHANLOC_MAX        7
@@ -471,6 +475,8 @@ typedef enum IRQn
 /** @} End of group EFM32GG990F1024  */
 
 /** @} End of group Parts */
+
+#endif
 
 #ifdef __cplusplus
 }

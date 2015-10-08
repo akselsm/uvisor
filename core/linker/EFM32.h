@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "em_family.h"
+#include "../arch/EFM32/inc/em_family.h"
 
-#define FLASH_ORIGIN FLASH_BASE
+#define FLASH_ORIGIN 0x00000000
 #define FLASH_LENGTH FLASH_SIZE
 
-#define SRAM_ORIGIN  SRAM_BASE
+#define SRAM_ORIGIN  0x20000000
 #define SRAM_LENGTH  SRAM_SIZE
