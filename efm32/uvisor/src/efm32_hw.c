@@ -36,13 +36,21 @@ void vmpu_arch_init_hw(void)
     /* enable box zero SRAM, region can be larger than physical SRAM */
     vmpu_acl_static_region(
         1,
-        (void*)0x20000000,
-        0x40000,
+        (void*)SRAM_ORIGIN,
+        SRAM_LENGTH,
         UVISOR_TACLDEF_DATA | UVISOR_TACL_EXECUTE
     );
 
+    /* UVisor */
+    vmpu_acl_static_region(
+        2,
+        (void*)SRAM_ORIGIN,
+        ((uint32_t)__uvisor_config.bss_end)-SRAM_ORIGIN,
+        UVISOR_TACL_SREAD | UVISOR_TACL_SWRITE
+    );
+
     /* sanity check, increase define if necessary */
-    if(ARMv7M_MPU_RESERVED_REGIONS != 2)
+    if(ARMv7M_MPU_RESERVED_REGIONS != 3)
         HALT_ERROR(SANITY_CHECK_FAILED,
             "please adjust ARMv7M_MPU_RESERVED_REGIONS to actual region count");
 }

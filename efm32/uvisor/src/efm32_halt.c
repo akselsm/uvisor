@@ -56,8 +56,8 @@ void halt_led(THaltError reason)
             /* toggle HALT LED pin */
             GPIO->P[HALT_LED_PORT].DOUTTGL = 1 << HALT_LED_PIN;
             flag = !flag;
-            for(delay = 0; delay < HALT_INTRA_PATTERN_DELAY; delay++);
+            for(delay = 0; delay < HALT_INTRA_PATTERN_DELAY/10; delay++);
         }
-        for(delay = 0; delay < HALT_INTER_PATTERN_DELAY; delay++);
+        for(delay = 0; delay < HALT_INTER_PATTERN_DELAY/10; delay++);
     }
 }
