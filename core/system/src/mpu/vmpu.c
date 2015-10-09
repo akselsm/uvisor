@@ -36,6 +36,8 @@
 #error "MPU_MAX_PRIVATE_FUNCTIONS needs to be lower/equal to 0x100"
 #endif
 
+#define SCB_BFSR  (*((volatile uint8_t *) &SCB->CFSR + 1))
+
 uint32_t  g_vmpu_box_count;
 uint8_t g_active_box;
 
@@ -331,6 +333,9 @@ int vmpu_fault_recovery_bus(uint32_t pc, uint32_t sp, uint32_t fault_addr, uint3
     /* otherwise execution continues from the instruction following the fault */
     /* note: we assume the instruction is 16 bits wide and skip possible NOPs */
     vmpu_unpriv_uint32_write(sp + (6 << 2), pc + ((UVISOR_NOP_CNT + 2 - cnt) << 1));
+    
+    /* clear BFSR only - reset BFARVALID bit to acknowledge fault */
+    SCB_BFSR = 0x80;
 
     /* success */
     return 0;
