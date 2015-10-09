@@ -91,7 +91,7 @@ efm32gg: DEVICES := \
 230F1024
 efm32gg:
 	$(foreach DEVICE, $(DEVICES), $(MAKE) efm32_release FAMILY=$(FAMILY) DEVICE=$(DEVICE) && $(MAKE) clean && ) true
-    
+	
 #iterate over all EFM32LG targets here
 efm32lg: FAMILY := LG
 efm32lg: DEVICES := \
@@ -159,8 +159,8 @@ efm32lg: DEVICES := \
 230F128 \
 230F256
 efm32lg:
-    $(foreach DEVICE, $(DEVICES), $(MAKE) efm32_release FAMILY=$(FAMILY) DEVICE=$(DEVICE) && $(MAKE) clean && ) true
-    
+	$(foreach DEVICE, $(DEVICES), $(MAKE) efm32_release FAMILY=$(FAMILY) DEVICE=$(DEVICE) && $(MAKE) clean && ) true
+	
 #iterate over all EFM32WG targets here
 efm32wg: FAMILY := WG
 efm32wg: DEVICES := \
@@ -228,8 +228,8 @@ efm32wg: DEVICES := \
 230F128 \
 230F256
 efm32wg:
-    $(foreach DEVICE, $(DEVICES), $(MAKE) efm32_release FAMILY=$(FAMILY) DEVICE=$(DEVICE) && $(MAKE) clean && ) true
-    
+	$(foreach DEVICE, $(DEVICES), $(MAKE) efm32_release FAMILY=$(FAMILY) DEVICE=$(DEVICE) && $(MAKE) clean && ) true
+	
 #run release on a specific target
 efm32_release:
 	$(MAKE) all OPT= release CPU=$(ARCH)$(FAMILY)$(DEVICE) CPU_JLINK=$(ARCH)$(FAMILY)$(DEVICE) FAMILY=$(FAMILY) DEVICE=$(DEVICE)

@@ -190,7 +190,7 @@
 
 #else
 #error "Unsupported MCU in EFM32GG family"
-#endif
+#endif //GG family if-elif
 
 #elif defined(FAMILY_LG)
 #if defined(EFM32LG230F128)
@@ -451,7 +451,7 @@
 
 #else
 #error "Unsupported MCU in EFM32LG family"
-#endif
+#endif //LG family if-elif
 
 #elif defined(FAMILY_WG)
 #if defined(EFM32WG230F128)
@@ -712,11 +712,13 @@
 
 #else
 #error "Unsupported MCU in EFM32WG family"
-#endif
+#endif // WG family if-elif
+
+#endif //FAMILY if-elif
 
 #else
 #error "Unsupported architecture"
-#endif
+#endif //ARCH_EFM32
 
 #define FLASH_ORIGIN 0x00000000
 #define FLASH_LENGTH _FLASH_SIZE
@@ -724,4 +726,4 @@
 #define SRAM_ORIGIN  0x20000000
 #define SRAM_LENGTH  _SRAM_SIZE
 
-#endif
+#endif //_EFM32_H_
