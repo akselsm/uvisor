@@ -18,8 +18,14 @@
 #include "halt.h"
 
 // TODO: Add LED port and pin for all targets
+#if defined(FAMILY_LG) || defined(FAMILY_GG) || defined(FAMILY_WG)
 #define HALT_LED_PORT 4 /* Port E */
 #define HALT_LED_PIN 3
+#else
+#warning "uVisor LED pin not configured for this target"
+#define HALT_LED_PORT 4 /* Port E */
+#define HALT_LED_PIN 3
+#endif
 
 void halt_led(THaltError reason)
 {
