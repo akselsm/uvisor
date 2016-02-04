@@ -20,7 +20,12 @@
 static const MemMap g_mem_map[] = {
     {"FLASH",       FLASH_BASE,       FLASH_BASE       + FLASH_SIZE                },
     {"SRAM",        SRAM_BASE,        SRAM_BASE        + SRAM_SIZE                 },
+#ifdef AES_MEM_BASE
     {"AES",         AES_MEM_BASE,     AES_MEM_BASE     + AES_MEM_SIZE              },
+#endif
+#ifdef CRYPTO_MEM_BASE
+    {"CRYPTO",      CRYPTO_MEM_BASE,  CRYPTO_MEM_BASE  + CRYPTO_MEM_SIZE           },
+#endif
 #ifdef FPUEH_BASE
     {"FPUEH",       FPUEH_BASE,       FPUEH_BASE       + sizeof(FPUEH_TypeDef)     },
 #endif
@@ -34,8 +39,18 @@ static const MemMap g_mem_map[] = {
     {"EMU",         EMU_BASE,         EMU_BASE         + sizeof(EMU_TypeDef)       },
     {"RMU",         RMU_BASE,         RMU_BASE         + sizeof(RMU_TypeDef)       },
     {"CMU",         CMU_BASE,         CMU_BASE         + sizeof(CMU_TypeDef)       },
+#ifdef LESENSE_BASE
     {"LESENSE",     LESENSE_BASE,     LESENSE_BASE     + sizeof(LESENSE_TypeDef)   },
+#endif
+#ifdef RTC_BASE
     {"RTC",         RTC_BASE,         RTC_BASE         + sizeof(RTC_TypeDef)       },
+#endif
+#ifdef RTCC_BASE
+    {"RTCC",        RTCC_BASE,        RTCC_BASE        + sizeof(RTCC_TypeDef)      },
+#endif
+#ifdef CRYOTIMER_BASE
+    {"CRYOTIMER",   CRYOTIMER_BASE,   CRYOTIMER_BASE   + sizeof(CRYOTIMER_TypeDef) },
+#endif
 #ifdef LETIMER0_BASE
     {"LETIMER0",    LETIMER0_BASE,    LETIMER0_BASE    + sizeof(LETIMER_TypeDef)   },
 #endif
@@ -82,7 +97,9 @@ static const MemMap g_mem_map[] = {
     {"I2C1",        I2C1_BASE,        I2C1_BASE        + sizeof(I2C_TypeDef)       },
 #endif
     {"GPIO",        GPIO_BASE,        GPIO_BASE        + sizeof(GPIO_TypeDef)      },
+#ifdef VCMP_BASE
     {"VCMP",        VCMP_BASE,        VCMP_BASE        + sizeof(VCMP_TypeDef)      },
+#endif
     {"PRS",         PRS_BASE,         PRS_BASE         + sizeof(PRS_TypeDef)       },
 #ifdef LEUART0_BASE
     {"LEUART0",     LEUART0_BASE,     LEUART0_BASE     + sizeof(LEUART_TypeDef)    },
@@ -108,10 +125,30 @@ static const MemMap g_mem_map[] = {
 #ifdef LCD_BASE
     {"LCD",         LCD_BASE,         LCD_BASE         + sizeof(LCD_TypeDef)       },
 #endif
+#ifdef IDAC0_BASE
+    {"IDAC0",       IDAC0_BASE,       IDAC0_BASE       + sizeof(IDAC_TypeDef)      },
+#endif
+#ifdef BURTC_BASE
     {"BURTC",       BURTC_BASE,       BURTC_BASE       + sizeof(BURTC_TypeDef)     },
+#endif
+#ifdef WDOG
     {"WDOG",        WDOG_BASE,        WDOG_BASE        + sizeof(WDOG_TypeDef)      },
+#endif
+#ifdef WDOG0
+    {"WDOG0",       WDOG0_BASE,       WDOG0_BASE       + sizeof(WDOG_TypeDef)      },
+#endif
+#ifdef GPCRC_BASE
+    {"GPCRC",       GPCRC_BASE,       GPCRC_BASE       + sizeof(GPCRC_TypeDef)     },
+#endif
+#ifdef LDMA_BASE
+    {"LDMA",        LDMA_BASE,        LDMA_BASE        + sizeof(LDMA_TypeDef)      },
+#endif
+#ifdef ETM_BASE
     {"ETM",         ETM_BASE,         ETM_BASE         + sizeof(ETM_TypeDef)       },
+#endif
+#ifdef CALIBRATE_BASE
     {"CALIBRATE",   CALIBRATE_BASE,   CALIBRATE_BASE   + sizeof(CALIBRATE_TypeDef) },
+#endif
     {"DEVINFO",     DEVINFO_BASE,     DEVINFO_BASE     + sizeof(DEVINFO_TypeDef)   },
     {"ITM",         ITM_BASE,         ITM_BASE         + sizeof(ITM_Type)          },
     {"DWT",         DWT_BASE,         DWT_BASE         + sizeof(DWT_Type)          },
@@ -122,6 +159,14 @@ static const MemMap g_mem_map[] = {
     {"CoreDebug",   CoreDebug_BASE,   CoreDebug_BASE   + sizeof(CoreDebug_Type)    },
     {"BITBAND_PER", BITBAND_PER_BASE, BITBAND_PER_BASE + 32 * PER_MEM_SIZE         },
     {"BITBAND_RAM", BITBAND_RAM_BASE, BITBAND_RAM_BASE + 32 * RAM_MEM_SIZE         },
+#ifdef PER_BITSET_MEM_BASE
+    {"PER_BITSET",  PER_BITSET_MEM_BASE, PER_BITSET_MEM_BASE + PER_BITSET_MEM_SIZE },
+    {"PER_BITCLR",  PER_BITCLR_MEM_BASE, PER_BITCLR_MEM_BASE + PER_BITCLR_MEM_SIZE },
+#endif
+#ifdef CRYPTO_BITSET_MEM_BASE
+    {"CRYPTO_BITSET", CRYPTO_BITSET_MEM_BASE, CRYPTO_BITSET_MEM_BASE + CRYPTO_BITSET_MEM_SIZE },
+    {"CRYPTO_BITCLR", CRYPTO_BITCLR_MEM_BASE, CRYPTO_BITCLR_MEM_BASE + CRYPTO_BITCLR_MEM_SIZE },
+#endif
 };
 
 const MemMap* memory_map_name(uint32_t addr)

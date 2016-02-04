@@ -20,7 +20,10 @@
 // TODO: Add LED port and pin for all targets
 #if defined(FAMILY_LG) || defined(FAMILY_GG) || defined(FAMILY_WG)
 #define HALT_LED_PORT 4 /* Port E */
-#define HALT_LED_PIN 3
+#define HALT_LED_PIN  3 /* PE3 = LED1 */
+#elif defined(FAMILY_PG1B) || defined(FAMILY_JG1B)
+#define HALT_LED_PORT 5 /* Port F */
+#define HALT_LED_PIN  5 /* PF5 = LED1 */
 #else
 #warning "uVisor LED pin not configured for this target"
 #define HALT_LED_PORT 4 /* Port E */
@@ -35,9 +38,17 @@ void halt_led(THaltError reason)
     int flag;
 
     /* Enable HFPER clock */
+#if defined(_CMU_HFPERCLKDIV_HFPERCLKEN_SHIFT)
     CMU->HFPERCLKDIV |= 1 << _CMU_HFPERCLKDIV_HFPERCLKEN_SHIFT;
+#endif
     /* Enable GPIO clock */
+#if defined(_CMU_HFPERCLKEN0_GPIO_SHIFT)
     CMU->HFPERCLKEN0 |= 1 << _CMU_HFPERCLKEN0_GPIO_SHIFT;
+#elif defined(_CMU_HFBUSCLKEN0_GPIO_SHIFT)
+    CMU->HFBUSCLKEN0 |= 1 << _CMU_HFBUSCLKEN0_GPIO_SHIFT;
+#else
+#error "No GPIO clock"
+#endif
 
     /* Set HALT port/pin to push-pull */
 #if  HALT_LED_PIN < 8

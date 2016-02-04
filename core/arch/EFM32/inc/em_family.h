@@ -47,6 +47,10 @@
 #include "../efm32lg/inc/em_device.h"
 #elif defined(FAMILY_WG)
 #include "../efm32wg/inc/em_device.h"
+#elif defined(FAMILY_PG1B)
+#include "../efm32pg1b/inc/em_device.h"
+#elif defined(FAMILY_JG1B)
+#include "../efm32jg1b/inc/em_device.h"
 #else
 #error "em_family.h: FAMILY not supported"
 #endif

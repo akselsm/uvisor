@@ -714,6 +714,64 @@
 #error "Unsupported MCU in EFM32WG family"
 #endif // WG family if-elif
 
+#elif defined(FAMILY_PG1B)
+#if defined(EFM32PG1B100F128GM32)
+#define _FLASH_SIZE  0x00020000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32PG1B100F256GM32)
+#define _FLASH_SIZE  0x00040000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32PG1B200F128GM32)
+#define _FLASH_SIZE  0x00020000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32PG1B200F256GM32)
+#define _FLASH_SIZE  0x00040000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32PG1B200F128GM48)
+#define _FLASH_SIZE  0x00020000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32PG1B200F256GM48)
+#define _FLASH_SIZE  0x00040000
+#define _SRAM_SIZE   0x00008000
+
+#else
+#error "Unsupported MCU in EFM32PG1B family"
+#endif // PG1B family if-elif
+
+#elif defined(FAMILY_JG1B)
+#if defined(EFM32JG1B100F128GM32)
+#define _FLASH_SIZE  0x00020000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32JG1B100F256GM32)
+#define _FLASH_SIZE  0x00040000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32JG1B200F128GM32)
+#define _FLASH_SIZE  0x00020000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32JG1B200F256GM32)
+#define _FLASH_SIZE  0x00040000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32JG1B200F128GM48)
+#define _FLASH_SIZE  0x00020000
+#define _SRAM_SIZE   0x00008000
+
+#elif defined(EFM32JG1B200F256GM48)
+#define _FLASH_SIZE  0x00040000
+#define _SRAM_SIZE   0x00008000
+
+#else
+#error "Unsupported MCU in EFM32JG1B family"
+#endif // JG1B family if-elif
+
 #endif //FAMILY if-elif
 
 #else

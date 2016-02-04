@@ -49,8 +49,16 @@ void vmpu_arch_init_hw(void)
         UVISOR_TACL_SREAD | UVISOR_TACL_SWRITE
     );
 
+    /* DI page / calibration values should always be readable */
+    vmpu_acl_static_region(
+        3,
+        (void*)0x0FE08000,
+        0x1000,
+        UVISOR_TACLDEF_SECURE_CONST | UVISOR_TACL_EXECUTE
+    );
+
     /* sanity check, increase define if necessary */
-    if(ARMv7M_MPU_RESERVED_REGIONS != 3)
+    if(ARMv7M_MPU_RESERVED_REGIONS != 4)
         HALT_ERROR(SANITY_CHECK_FAILED,
             "please adjust ARMv7M_MPU_RESERVED_REGIONS to actual region count");
 }
